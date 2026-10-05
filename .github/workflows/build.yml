@@ -20,20 +20,26 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Grant execute permission
+      - name: Make gradlew executable
         run: chmod +x gradlew
 
       - name: Build extension
         run: ./gradlew make
 
+      - name: Collect outputs
+        run: |
+          mkdir -p outputs
+          find . -name "*.cs3" -exec cp {} outputs/ \;
+          ls -la outputs/
+
       - name: Push to repo branch
         run: |
-          cd build/outputs/
+          cd outputs
           git init
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git checkout -b repo
           git add .
-          git commit -m "Build extension"
+          git commit -m "Build: NguonCProvider.cs3"
           git remote add origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
           git push origin repo --force
