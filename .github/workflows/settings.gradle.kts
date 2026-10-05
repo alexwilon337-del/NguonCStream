@@ -13,6 +13,7 @@ pluginManagement {
         }
     }
 }
+
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
     repositories {
@@ -21,6 +22,7 @@ dependencyResolutionManagement {
         maven("https://jitpack.io")
     }
 }
+
 rootProject.name = "NguonCStream"
 include(":NguonCProvider")
 project(":NguonCProvider").projectDir = file("NguonCProvider")
